@@ -1,0 +1,17 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/aws/aws-sdk-go",
+			"repository": "https://github.com/aws/aws-sdk-go",
+			"revision": "1b2abe886743dc2bcc78472bfd30a15dc0a61fb8",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/cloudflare/cloudflare-go",
+			"repository": "https://github.com/cloudflare/cloudflare-go",
+			"revision": "06a204ed25dc2873323f27d0e134ed4fdbd1c1ec",
+			"branch": "master"
+		}
+	]
+}
