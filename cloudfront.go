@@ -16,9 +16,9 @@ var (
 	letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 )
 
-func invalidateCloudfront(data []*Cloudfront, wg sync.WaitGroup) {
+func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup) {
 	for _, v := range data {
-		go func(v *Cloudfront, wg sync.WaitGroup) {
+		go func(v *Cloudfront, wg *sync.WaitGroup) {
 			fmt.Println("Starting Cloudfront cache invalidation for ", v.DistributionID)
 			defer wg.Done()
 			var list []*string

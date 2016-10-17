@@ -8,9 +8,9 @@ import (
 	"github.com/cloudflare/cloudflare-go"
 )
 
-func invalidateCloudflare(data []*Cloudflare, wg sync.WaitGroup) {
+func invalidateCloudflare(data []*Cloudflare, wg *sync.WaitGroup) {
 	for _, v := range data {
-		go func(v *Cloudflare, wg sync.WaitGroup) {
+		go func(v *Cloudflare, wg *sync.WaitGroup) {
 			fmt.Println("Starting Cloudflare cache invalidation for ", v.ZoneID)
 			defer wg.Done()
 			api, err := cloudflare.New(v.Key, v.Email)

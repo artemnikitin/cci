@@ -34,12 +34,12 @@ func main() {
 	if len(conf.Cloudflare) > 0 {
 		fmt.Println("Starting Cloudfront task ...")
 		wg.Add(len(conf.Cloudflare))
-		invalidateCloudflare(conf.Cloudflare, wg)
+		invalidateCloudflare(conf.Cloudflare, &wg)
 	}
 	if len(conf.Cloudfront) > 0 {
 		fmt.Println("Starting Cloudflare task ...")
 		wg.Add(len(conf.Cloudfront))
-		invalidateCloudfront(conf.Cloudfront, wg)
+		invalidateCloudfront(conf.Cloudfront, &wg)
 	}
 	wg.Wait()
 	fmt.Println("Done!")
