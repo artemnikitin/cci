@@ -1,0 +1,32 @@
+{
+	"cloudfront" : [{
+		"access_key": "11",
+		"secret_key": "11",
+		"distribution_id": "121",
+		"resources": [
+			"qw",
+			"qw"
+		]
+	},
+	{
+		"access_key": "22",
+		"secret_key": "22",
+		"region": "eu-west-1",
+		"distribution_id": "456"
+	}],
+	"cloudflare" : [{
+		"email": "aa@bb.cc",
+		"key": "qwe",
+		"zone_id": "11",
+		"purge_all": true
+	},
+	{
+		"email": "zz@xx.yy",
+		"key": "asd",
+		"zone_id": "443",
+		"resources": [
+			"qw",
+			"qw"
+		]
+	}]
+}
