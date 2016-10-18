@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"net/http"
+	"strings"
 	"sync"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
@@ -35,6 +38,9 @@ func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup) {
 			if *debug {
 				config.WithLogLevel(aws.LogDebugWithHTTPBody)
 			}
+			config.WithHTTPClient(&http.Client{
+				Timeout: 500 * time.Millisecond,
+			})
 			s, err := session.NewSession(config)
 			if err != nil {
 				log.Println("AWS Error:", err)
@@ -52,8 +58,8 @@ func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup) {
 				},
 			}
 			_, err = client.CreateInvalidation(params)
-			if err != nil {
-				log.Println("Receive an error:", err, "on Cloudfront with distribution id:", v.DistributionID)
+			if err != nil && !strings.Contains(err.Error(), "Client.Timeout exceeded") {
+				log.Println("AWS Error:", err)
 			}
 		}(v, wg)
 	}
