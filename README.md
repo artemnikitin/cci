@@ -9,3 +9,49 @@ Tool for invalidating cache for several CDN providers. Currently supports Cloudf
 ``` 
 go get github.com/artemnikitin/cci
 ``` 
+
+#### Use it
+```
+cci -config /path/to/config
+cci -config https://example.com/config.json
+```
+Parameters:
+- ``config`` specified path to config on hard drive or URL
+- ``debug`` print additional info for debug, optional
+
+#### Config 
+Should be present as JSON file.
+```json
+{
+	"cloudfront" : [{
+		"access_key": "AWS access key",
+		"secret_key": "AWS secret key",
+		"distribution_id": "Cloudfront distribution ID",
+		"resources": [
+			"List of files for invalidation, optional",
+			"Format: /index.html or /folder/*"
+		]
+	},
+	{
+		"access_key": "AWS access key",
+		"secret_key": "AWS secret key",
+		"region": "AWS region, format: eu-west-1",
+		"distribution_id": "Cloudfront distribution ID"
+	}],
+	"cloudflare" : [{
+		"email": "Cloudflare email",
+		"key": "Cloudflare API key",
+		"zone_id": "Cloudflare Zone ID",
+		"purge_all": true
+	},
+	{
+		"email": "Cloudflare email",
+		"key": "Cloudflare API key",
+		"zone_id": "Cloudflare Zone ID",
+		"resources": [
+			"List of files for invalidation, optional",
+			"Format: http://example.com/index.html"
+		]
+	}]
+}
+```
