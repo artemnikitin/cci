@@ -28,7 +28,7 @@ func TestGetConfigFromUnexistedFile(t *testing.T) {
 }
 
 func TestGetConfigFileNotJSON(t *testing.T) {
-	_, err := getConfig("/test1.json")
+	_, err := getConfig("/README.md")
 	if err == nil {
 		t.Error("Should return error for trying to open config in non-JSON file")
 	}
@@ -62,6 +62,19 @@ func TestGetConfigCorrect(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestGetConfigIncorrect(t *testing.T) {
+	server := serveJSON()
+	defer server.Close()
+
+	url := "http://example.com"
+	t.Run("Path: "+url, func(t *testing.T) {
+		_, err := getConfig(url)
+		if err == nil {
+			t.Error("Error:", err, "on open config:", url)
+		}
+	})
 }
 
 func serveJSON() *httptest.Server {
