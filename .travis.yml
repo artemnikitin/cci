@@ -6,7 +6,7 @@ install:
  - go get github.com/artemnikitin/s3-tool
 
 script:
- - s3-tool download -bucket qwe-v323-dsdasd-1eewe-xcsscs-121a -key test.json -path $GOPATH/src/github.com/artemnikitin/artemnikitin.com -region eu-west-1
+ - s3-tool download -bucket qwe-v323-dsdasd-1eewe-xcsscs-121a -key test.json -path $GOPATH/src/github.com/artemnikitin/cci -region eu-west-1
  - go test -race $(go list ./... | grep -v /vendor/)
 
 after_success:
