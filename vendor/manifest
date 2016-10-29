@@ -12,6 +12,12 @@
 			"repository": "https://github.com/cloudflare/cloudflare-go",
 			"revision": "06a204ed25dc2873323f27d0e134ed4fdbd1c1ec",
 			"branch": "master"
+		},
+		{
+			"importpath": "github.com/pkg/errors",
+			"repository": "https://github.com/pkg/errors",
+			"revision": "839d9e913e063e28dfd0e6c7b7512793e0a48be9",
+			"branch": "master"
 		}
 	]
 }
