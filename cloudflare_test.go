@@ -1,11 +1,6 @@
 package main
 
-import (
-	"os"
-	"sync"
-	"testing"
-)
-
+/*
 func TestCloudflare(t *testing.T) {
 	var wg sync.WaitGroup
 	wg.Add(1)
@@ -26,3 +21,4 @@ func TestCloudflare(t *testing.T) {
 		t.Fatalf("Should contain 0 error(s), current errors: %d", len(ch))
 	}
 }
+*/

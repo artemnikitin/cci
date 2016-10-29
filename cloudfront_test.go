@@ -1,8 +1,6 @@
 package main
 
 import (
-	"os"
-	"sync"
 	"testing"
 )
 
@@ -14,6 +12,7 @@ func TestGenerateRandomString(t *testing.T) {
 	}
 }
 
+/*
 func TestCloudfrontCorrect(t *testing.T) {
 	var wg sync.WaitGroup
 	wg.Add(1)
@@ -34,3 +33,4 @@ func TestCloudfrontCorrect(t *testing.T) {
 		t.Fatalf("Should contain 0 error(s), current errors: %d", len(ch))
 	}
 }
+*/
