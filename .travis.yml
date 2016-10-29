@@ -2,6 +2,9 @@ language: go
 go: 
  - 1.7.3
 
+install:
+ - pwd
+
 script:
  - go test -race $(go list ./... | grep -v /vendor/)
 
