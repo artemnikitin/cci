@@ -31,14 +31,22 @@ func main() {
 	}
 
 	var wg sync.WaitGroup
+	errors := make(chan *RequestError)
 	if len(conf.Cloudflare) > 0 {
 		wg.Add(len(conf.Cloudflare))
-		invalidateCloudflare(conf.Cloudflare, &wg)
+		invalidateCloudflare(conf.Cloudflare, &wg, errors)
 	}
 	if len(conf.Cloudfront) > 0 {
 		wg.Add(len(conf.Cloudfront))
-		invalidateCloudfront(conf.Cloudfront, &wg)
+		invalidateCloudfront(conf.Cloudfront, &wg, errors)
 	}
 	wg.Wait()
+	close(errors)
+	if len(errors) > 0 {
+		for v := range errors {
+			fmt.Println(v.ToString())
+		}
+		os.Exit(1)
+	}
 	fmt.Println("Done!")
 }

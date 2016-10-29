@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"math/rand"
 	"net/http"
 	"strings"
@@ -19,10 +18,10 @@ var (
 	letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 )
 
-func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup) {
+func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup, ch chan<- *RequestError) {
 	for _, v := range data {
 		go func(v *Cloudfront, wg *sync.WaitGroup) {
-			fmt.Println("Starting Cloudfront cache invalidation for ", v.DistributionID)
+			fmt.Println("Starting Cloudfront cache invalidation for", v.DistributionID)
 			defer wg.Done()
 			var list []*string
 			if v.Resources != nil {
@@ -43,7 +42,7 @@ func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup) {
 			})
 			s, err := session.NewSession(config)
 			if err != nil {
-				log.Println("AWS Error:", err)
+				ch <- NewAWSCloudfrontError(v.DistributionID, err.Error())
 				return
 			}
 			client := cloudfront.New(s)
@@ -59,7 +58,7 @@ func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup) {
 			}
 			_, err = client.CreateInvalidation(params)
 			if err != nil && !strings.Contains(err.Error(), "Client.Timeout exceeded") {
-				log.Println("AWS Error:", err)
+				ch <- NewAWSCloudfrontError(v.DistributionID, err.Error())
 			}
 		}(v, wg)
 	}
