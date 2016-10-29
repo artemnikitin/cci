@@ -29,9 +29,15 @@ func main() {
 	if err != nil {
 		log.Fatal("Can't process config: ", err)
 	}
-
-	var wg sync.WaitGroup
 	errors := make(chan *RequestError, conf.getSize())
+
+	execute(conf, errors)
+	checkErrors(errors)
+	fmt.Println("Done!")
+}
+
+func execute(conf *Config, errors chan<- *RequestError) {
+	var wg sync.WaitGroup
 	if len(conf.Cloudflare) > 0 {
 		wg.Add(len(conf.Cloudflare))
 		invalidateCloudflare(conf.Cloudflare, &wg, errors)
@@ -42,11 +48,13 @@ func main() {
 	}
 	wg.Wait()
 	close(errors)
+}
+
+func checkErrors(errors <-chan *RequestError) {
 	if len(errors) > 0 {
 		for v := range errors {
 			fmt.Println(v.toString())
 		}
 		os.Exit(1)
 	}
-	fmt.Println("Done!")
 }
