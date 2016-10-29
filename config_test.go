@@ -27,6 +27,59 @@ func TestGetConfigFromUnexistedFile(t *testing.T) {
 	}
 }
 
+func TestGetConfigSize(t *testing.T) {
+	cases := []struct {
+		title  string
+		size   int
+		config *Config
+	}{
+		{
+			"empty config",
+			0,
+			&Config{},
+		},
+		{
+			"only 1 entity",
+			1,
+			&Config{
+				Cloudfront: []*Cloudfront{{}},
+			},
+		},
+		{
+			"only 1 entity with several values",
+			3,
+			&Config{
+				Cloudfront: []*Cloudfront{{}, {}, {}},
+			},
+		},
+		{
+			"every type of entity",
+			2,
+			&Config{
+				Cloudfront: []*Cloudfront{{}},
+				Cloudflare: []*Cloudflare{{}},
+			},
+		},
+		{
+			"every type of entity with several values",
+			3,
+			&Config{
+				Cloudfront: []*Cloudfront{{}},
+				Cloudflare: []*Cloudflare{{}, {}},
+			},
+		},
+	}
+
+	for _, v := range cases {
+		t.Run(v.title, func(t *testing.T) {
+			size := v.config.getSize()
+			if size != v.size {
+				t.Errorf("Expected size: %d, actual: %d", v.size, size)
+			}
+		})
+	}
+}
+
 func TestGetConfigFileNotJSON(t *testing.T) {
 	_, err := getConfig("/README.md")
 	if err == nil {

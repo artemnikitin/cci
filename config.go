@@ -29,6 +29,10 @@ type Cloudflare struct {
 	Resources []string `json:"resources,omitempty"`
 }
 
+func (c *Config) getSize() int {
+	return len(c.Cloudflare) + len(c.Cloudfront)
+}
+
 func getConfig(path string) (*Config, error) {
 	var conf *Config
 	var err error

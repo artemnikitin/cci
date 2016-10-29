@@ -30,4 +30,5 @@ _testmain.go
 *.out
 
 test.json
+test_*.json
 cci

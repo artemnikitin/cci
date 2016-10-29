@@ -31,7 +31,7 @@ func main() {
 	}
 
 	var wg sync.WaitGroup
-	errors := make(chan *RequestError)
+	errors := make(chan *RequestError, conf.getSize())
 	if len(conf.Cloudflare) > 0 {
 		wg.Add(len(conf.Cloudflare))
 		invalidateCloudflare(conf.Cloudflare, &wg, errors)
@@ -44,7 +44,7 @@ func main() {
 	close(errors)
 	if len(errors) > 0 {
 		for v := range errors {
-			fmt.Println(v.ToString())
+			fmt.Println(v.toString())
 		}
 		os.Exit(1)
 	}

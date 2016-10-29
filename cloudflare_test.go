@@ -1,11 +1,10 @@
 package main
 
-/*
-func TestCloudflare(t *testing.T) {
+/*func TestCloudflare(t *testing.T) {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	v := []*Cloudflare{}
-	ch := make(chan *RequestError)
+	ch := make(chan *RequestError, 1)
 	v = append(v, &Cloudflare{
 		Email:  os.Getenv("CLOUDFLARE_EMAIL"),
 		Key:    os.Getenv("CLOUDFLARE_KEY"),
@@ -20,5 +19,4 @@ func TestCloudflare(t *testing.T) {
 	if len(ch) != 0 {
 		t.Fatalf("Should contain 0 error(s), current errors: %d", len(ch))
 	}
-}
-*/
+}*/

@@ -29,6 +29,7 @@ func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup, ch chan<- *Req
 					list = append(list, aws.String(v))
 				}
 			}
+
 			config := aws.NewConfig()
 			config.WithCredentials(credentials.NewStaticCredentials(v.AccessKey, v.SecretKey, ""))
 			if v.Region != "" {
@@ -38,13 +39,15 @@ func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup, ch chan<- *Req
 				config.WithLogLevel(aws.LogDebugWithHTTPBody)
 			}
 			config.WithHTTPClient(&http.Client{
-				Timeout: 500 * time.Millisecond,
+				Timeout: 10 * time.Second,
 			})
+
 			s, err := session.NewSession(config)
 			if err != nil {
-				ch <- NewAWSCloudfrontError(v.DistributionID, err.Error())
+				ch <- newError(AWS, v.DistributionID, err.Error())
 				return
 			}
+
 			client := cloudfront.New(s)
 			params := &cloudfront.CreateInvalidationInput{
 				DistributionId: aws.String(v.DistributionID),
@@ -56,9 +59,10 @@ func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup, ch chan<- *Req
 					},
 				},
 			}
+
 			_, err = client.CreateInvalidation(params)
 			if err != nil && !strings.Contains(err.Error(), "Client.Timeout exceeded") {
-				ch <- NewAWSCloudfrontError(v.DistributionID, err.Error())
+				ch <- newError(AWS, v.DistributionID, err.Error())
 			}
 		}(v, wg)
 	}

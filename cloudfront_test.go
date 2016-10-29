@@ -1,8 +1,6 @@
 package main
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestGenerateRandomString(t *testing.T) {
 	str1 := randomString(10)
@@ -12,12 +10,11 @@ func TestGenerateRandomString(t *testing.T) {
 	}
 }
 
-/*
-func TestCloudfrontCorrect(t *testing.T) {
+/*func TestCloudfrontCorrect(t *testing.T) {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	v := []*Cloudfront{}
-	ch := make(chan *RequestError)
+	ch := make(chan *RequestError, 1)
 	v = append(v, &Cloudfront{
 		AccessKey:      os.Getenv("AWS_ACCESS_KEY_ID"),
 		SecretKey:      os.Getenv("AWS_SECRET_ACCESS_KEY"),
@@ -32,5 +29,4 @@ func TestCloudfrontCorrect(t *testing.T) {
 	if len(ch) != 0 {
 		t.Fatalf("Should contain 0 error(s), current errors: %d", len(ch))
 	}
-}
-*/
+}*/
