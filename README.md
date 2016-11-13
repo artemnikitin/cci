@@ -1,9 +1,9 @@
-# cci
+# CDN Cache Invalidation Tool
 [![Go Report Card](https://goreportcard.com/badge/github.com/artemnikitin/cci)](https://goreportcard.com/report/github.com/artemnikitin/cci)   [![codebeat badge](https://codebeat.co/badges/41e5be9d-a578-4bd0-87d4-5ffc564e38f0)](https://codebeat.co/projects/github-com-artemnikitin-cci)   [![Build Status](https://travis-ci.org/artemnikitin/cci.svg?branch=master)](https://travis-ci.org/artemnikitin/cci)   
-CDN Cache Invalidation Tool
 
 #### Description
-Tool for invalidating cache for several CDN providers. Currently supports:
+Tool for invalidating cache for several CDN providers.     
+Currently supports:
 ```
 Cloudfront (AWS)
 Cloudflare
@@ -11,7 +11,7 @@ Cloudflare
 
 #### Get it 
 ``` 
-go get github.com/artemnikitin/cci
+go get -u github.com/artemnikitin/cci
 ``` 
 
 #### Use it
@@ -21,7 +21,7 @@ cci -config https://example.com/config.json
 ```
 Parameters:
 - ``config`` specified path to config on hard drive or URL
-- ``debug`` print additional info for debug, optional
+- ``debug`` print additional info for debug, **optional**
 
 #### Config 
 Should be present as JSON file.
@@ -39,7 +39,6 @@ Should be present as JSON file.
 	{
 		"access_key": "AWS access key",
 		"secret_key": "AWS secret key",
-		"region": "AWS region, format: eu-west-1",
 		"distribution_id": "Cloudfront distribution ID"
 	}],
 	"cloudflare" : [{
