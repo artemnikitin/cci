@@ -24,16 +24,14 @@ func invalidateCloudflare(data []*Cloudflare, wg *sync.WaitGroup, ch chan<- *Req
 				return
 			}
 
-			if v.PurgeAll == true {
+			if v.PurgeAll {
 				_, err := api.PurgeEverything(v.ZoneID)
 				if err != nil {
 					ch <- newError(CF, v.ZoneID, err.Error())
 				}
 			} else {
 				req := cloudflare.PurgeCacheRequest{}
-				for _, v := range v.Resources {
-					req.Files = append(req.Files, v)
-				}
+				req.Files = append(req.Files, v.Resources...)
 				_, err := api.PurgeCache(v.ZoneID, req)
 				if err != nil {
 					ch <- newError(CF, v.ZoneID, err.Error())

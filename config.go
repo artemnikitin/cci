@@ -8,11 +8,13 @@ import (
 	"strings"
 )
 
+// Config represents config for tool
 type Config struct {
 	Cloudfront []*Cloudfront `json:"cloudfront"`
 	Cloudflare []*Cloudflare `json:"cloudflare"`
 }
 
+// Cloudfront represents config details for specific service
 type Cloudfront struct {
 	AccessKey      string   `json:"access_key"`
 	SecretKey      string   `json:"secret_key"`
@@ -21,6 +23,7 @@ type Cloudfront struct {
 	Region         string   `json:"region,omitempty"`
 }
 
+// Cloudflare represents config details for specific service
 type Cloudflare struct {
 	Email     string   `json:"email"`
 	Key       string   `json:"key"`

@@ -7,6 +7,7 @@ const (
 	CF  = "Cloudflare"
 )
 
+// RequestError represents container for error details
 type RequestError struct {
 	ID      string
 	service string
