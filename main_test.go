@@ -1,11 +1,6 @@
 package main
 
-import (
-	"log"
-	"testing"
-)
-
-func TestEnd2End(t *testing.T) {
+/*func TestEnd2End(t *testing.T) {
 	config, err := getConfig("test.json")
 	if err != nil {
 		t.Fatal("Open config error: ", err.Error())
@@ -18,4 +13,4 @@ func TestEnd2End(t *testing.T) {
 		}
 		t.Error("Expected 0 errors, actual: ", len(errors))
 	}
-}
+}*/
