@@ -16,7 +16,7 @@ func invalidateCloudflare(data []*Cloudflare, wg *sync.WaitGroup, ch chan<- *Req
 			defer wg.Done()
 
 			opt := cloudflare.HTTPClient(&http.Client{
-				Timeout: 10 * time.Second,
+				Timeout: 60 * time.Second,
 			})
 			api, err := cloudflare.New(v.Key, v.Email, opt)
 			if err != nil {

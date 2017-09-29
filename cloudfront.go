@@ -39,7 +39,7 @@ func invalidateCloudfront(data []*Cloudfront, wg *sync.WaitGroup, ch chan<- *Req
 				config.WithLogLevel(aws.LogDebugWithHTTPBody)
 			}
 			config.WithHTTPClient(&http.Client{
-				Timeout: 10 * time.Second,
+				Timeout: 60 * time.Second,
 			})
 
 			s, err := session.NewSession(config)
