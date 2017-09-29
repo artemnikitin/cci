@@ -1,7 +1,8 @@
 language: go
 
 go: 
- - 1.7.5
+ - 1.9.x
+ - 1.8.x
 
 install:
  - go get github.com/artemnikitin/s3-tool
