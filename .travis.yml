@@ -9,7 +9,7 @@ install:
 
 script:
  - s3-tool download -bucket qwe-v323-dsdasd-1eewe-xcsscs-121a -key test.json -path $GOPATH/src/github.com/artemnikitin/cci -region eu-west-1
- - go test -race $(go list ./... | grep -v /vendor/)
+ - go test -race -v $(go list ./... | grep -v /vendor/) -coverprofile=coverage.out
 
 after_success:
  - curl --request POST "https://goreportcard.com/checks" --data "repo=github.com/artemnikitin/cci"
